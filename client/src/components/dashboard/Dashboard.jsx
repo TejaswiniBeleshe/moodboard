@@ -1,7 +1,7 @@
 
 import { useState, useEffect } from "react"
-import NewMoodBoard from "./NewMoodBoard"
-import MoodBoardList from "./MoodBoardList"
+// import NewMoodBoard from "./NewMoodBoard"
+import MoodboardList from "../moodboardlist/MoodboardList"
 // import { moodBoardService } from "../services/moodBoardService"
 
 const Dashboard = ({ user, onLogout }) => {
@@ -105,7 +105,7 @@ const Dashboard = ({ user, onLogout }) => {
 
       {/* Content */}
       <main className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-        {currentView === "today" && (
+        {/* {currentView === "today" && (
           <div>
             <h2 className="text-xl font-semibold mb-4">Today's MoodBoard</h2>
             {todaysMoodBoard ? (
@@ -155,7 +155,7 @@ const Dashboard = ({ user, onLogout }) => {
           <CreateMoodBoard onMoodBoardCreated={handleMoodBoardCreated} hasToday={!!todaysMoodBoard} />
         )}
 
-        {currentView === "history" && <MoodBoardList moodBoards={allMoodBoards} />}
+        {currentView === "history" && <MoodBoardList moodBoards={allMoodBoards} />} */}
       </main>
     </div>
   )

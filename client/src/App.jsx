@@ -1,10 +1,11 @@
 import { useState ,useEffect} from 'react'
-import Login from './components/Login'
-import Dashboard from './components/Dashboard'
-import Register from './components/Register'
+import Login from './components/login/Login'
+import Dashboard from './components/dashboard/Dashboard'
+import Register from './components/register/Register'
 // import MoodboardList from './components/MoodboardList'
 
 import './App.css'
+import { Outlet } from 'react-router-dom'
 
 function App() {
   const [user, setUser] = useState(null)
@@ -45,9 +46,9 @@ function App() {
     )
   }
 
-  if (user) {
-    return <Dashboard user={user} onLogout={handleLogout} />
-  }
+  // if (user) {
+  //   return <Dashboard user={user} onLogout={handleLogout} />
+  // }
 
   return (
         <div className="min-h-screen bg-gradient-to-br from-purple-400 via-pink-500 to-red-500 flex items-center justify-center p-4">
@@ -64,8 +65,8 @@ function App() {
         )}
       </div> */}
       {/* <Login/> */}
-      <Register/>
-      <Dashboard/>
+      <Outlet/>
+     
     </div>
   )
 }
