@@ -11,16 +11,30 @@ These following features MoodBoard has:
 
 ## Tech Stack
 
-**Client:** React.js
+**React.js** – for building the UI with a component-based architecture.
+**Node.js & Express.js** – for creating the backend server and API endpoints.
+**MongoDB Atlas** – for managing and storing MoodBoard data in the cloud.
 **storage:** Local storage
 
-## Acknowledgements
+## 📌 Project Structure (Simplified)
+client/
+└── src/
+└── components/
+├── Login.jsx
+├── Register.jsx
+├── NewMoodBoard.jsx
+└── MoodboardList.jsx
 
+server/
+├── models/
+├── routes/
+├── middleware/
+└── server.js
+
+## Acknowledgements
  I would like to thank the following resources and tools that helped bring this project to life:
 
-
-
-Technologies and Libraries:
+## Technologies and Libraries:
 * React.js for building the user interface with a component-based approach.
 * Node.js(javascript run time) and Express.js for backend development and API creation.
 * MongoDB Atlas for cloud-based database management.
