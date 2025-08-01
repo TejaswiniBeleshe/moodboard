@@ -1,5 +1,5 @@
 
-# XExit
+# MoodBoard
 
 MoodBoard Lite is a full-stack web application that allows users to creatively express their mood daily using emojis, GIFs/images, color themes, and short notes. This project demonstrates full-stack development with authentication, state management, routing, and a visually engaging UI.
 These following features MoodBoard has:
