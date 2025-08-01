@@ -4,6 +4,8 @@ import Dashboard from './components/dashboard/Dashboard'
 import Register from './components/register/Register'
 // import MoodboardList from './components/MoodboardList'
 
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 import './App.css'
 import { Outlet } from 'react-router-dom'
 
@@ -11,6 +13,22 @@ function App() {
   const [user, setUser] = useState(null)
   const [currentView, setCurrentView] = useState("login")
   const [loading, setLoading] = useState(true)
+  const [moodboards, setMoodboards] = useState([]);
+
+  const addMoodboard = (newMoodboard) => {
+    const today = new Date().toISOString().split("T")[0];
+    const alreadyExists = moodboards.some(mb => mb.date === today);
+    if (alreadyExists) {
+      alert("You’ve already created a moodboard today.");
+      return false;
+    }
+    setMoodboards([{ ...newMoodboard, date: today }, ...moodboards]);
+    return true;
+  };
+
+
+ 
+ 
 
   useEffect(() => {
     const checkAuth = async () => {
@@ -65,10 +83,12 @@ function App() {
         )}
       </div> */}
       {/* <Login/> */}
-      <Outlet/>
+     
+      <Outlet  context={{ moodboards, addMoodboard }}/>
      
     </div>
   )
 }
+
 
 export default App

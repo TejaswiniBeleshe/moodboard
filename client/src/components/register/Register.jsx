@@ -1,121 +1,138 @@
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
+import 'bootstrap/dist/css/bootstrap.min.css';
 
-import { useState } from "react"
-// import { authService } from "../services/authService"
-
-const Register = ({ onLogin, onSwitchToLogin }) => {
+const Register = () => {
   const [formData, setFormData] = useState({
     username: "",
     email: "",
     password: "",
-    confirmPassword: "",
-  })
-  const [error, setError] = useState("")
-  const [loading, setLoading] = useState(false)
+  });
+      const [error, setError] = useState("");
+      const [loading, setLoading] = useState(false);
+      const navigate = useNavigate();
 
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    })
-  }
+      const handleChange = (e) => {
+        setFormData({
+          ...formData,
+          [e.target.name]: e.target.value,
+        });
+        setError('');
+      };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault()
-    setLoading(true)
-    setError("")
+    const handleSubmit = async (e) => {
+      e.preventDefault();
+      setError('');
 
-    if (formData.password !== formData.confirmPassword) {
-      setError("Passwords do not match")
-      setLoading(false)
-      return
-    }
+      const { username, email, password } = formData;
 
-    // try {
-    //   const response = await authService.register({
-    //     username: formData.username,
-    //     email: formData.email,
-    //     password: formData.password,
-    //   })
-    //   onLogin(response)
-    // } catch (error) {
-    //   setError(error.message)
-    // } finally {
-    //   setLoading(false)
-    // }
-    setLoading(false)
-  }
+      
+      const usernameRegex = /^[a-zA-Z0-9_]{3,20}$/;
+      if (!usernameRegex.test(username)) {
+        setError("Username should be 3-20 characters long and contain only letters, numbers, or underscores.");
+        return;
+      }
+
+
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email)) {
+        setError("Please enter a valid email address.");
+        return;
+      }
+
+      
+      const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d).{6,}$/;
+      if (!passwordRegex.test(password)) {
+        setError("Password must be at least 6 characters long and include both letters and numbers.");
+        return;
+      }
+
+         try {
+          setLoading(true);
+          setTimeout(() => {
+            setLoading(false);
+            navigate("/newmoodboard"); 
+          }, 1000);
+        } catch (err) {
+          setLoading(false);
+          setError("Login failed. Please try again.");
+        }
+    };
+
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
-      {error && <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">{error}</div>}
+    <main className="d-flex justify-content-center align-items-center px-3 register-bg min-vh-100">
+      <div className="bg-white shadow rounded-4 p-4 w-100" style={{ maxWidth: '400px' }}>
+        <h2 className="text-center mb-4 fs-3 text-dark">Register Here</h2>
+        <form onSubmit={handleSubmit}>
+          {error && <div className="alert alert-danger text-center">{error}</div>}
 
-      <div>
-        <label className="block text-gray-700 text-sm font-bold mb-2">Username</label>
-        <input
-          type="text"
-          name="username"
-          value={formData.username}
-          onChange={handleChange}
-          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
-          required
-          minLength="3"
-          maxLength="20"
-        />
+          <div className="mb-3">
+            <label className="form-label fw-bold">Username</label>
+            <input
+              type="text"
+              name="username"
+              className="form-control"
+              value={formData.username}
+              onChange={handleChange}
+              required
+              minLength="3"
+              maxLength="20"
+            />
+          </div>
+
+          <div className="mb-3">
+            <label className="form-label fw-bold">Email</label>
+            <input
+              type="email"
+              name="email"
+              className="form-control"
+              value={formData.email}
+              onChange={handleChange}
+              required
+            />
+          </div>
+
+          <div className="mb-3">
+            <label className="form-label fw-bold">Password</label>
+            <input
+              type="password"
+              name="password"
+              className="form-control"
+              value={formData.password}
+              onChange={handleChange}
+              required
+              minLength="6"
+            />
+          </div>
+
+          <button
+            type="submit"
+            className="btn btn-primary w-100 fw-bold"
+            disabled={loading}
+          >
+            {loading ? "Creating Account..." : "Register"}
+          </button>
+
+          <div className="text-center mt-3 small">
+            Already have an account?{" "}
+            <Link to="/" className="text-decoration-underline text-primary">
+              Login here
+            </Link>
+          </div>
+        </form>
       </div>
+      <style jsx>{`
+        .register-bg {
+            background: linear-gradient(to bottom right, #ede9fe, #ffffff, #f3e8ff);
+          }
 
-      <div>
-        <label className="block text-gray-700 text-sm font-bold mb-2">Email</label>
-        <input
-          type="email"
-          name="email"
-          value={formData.email}
-          onChange={handleChange}
-          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
-          required
-        />
-      </div>
+      
+      
+      `}</style>
+    </main>
+  );
+};
 
-      <div>
-        <label className="block text-gray-700 text-sm font-bold mb-2">Password</label>
-        <input
-          type="password"
-          name="password"
-          value={formData.password}
-          onChange={handleChange}
-          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
-          required
-          minLength="6"
-        />
-      </div>
-
-      <div>
-        <label className="block text-gray-700 text-sm font-bold mb-2">Confirm Password</label>
-        <input
-          type="password"
-          name="confirmPassword"
-          value={formData.confirmPassword}
-          onChange={handleChange}
-          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
-          required
-        />
-      </div>
-
-      <button
-        type="submit"
-        disabled={loading}
-        className="w-full bg-purple-500 hover:bg-purple-600 text-white font-bold py-2 px-4 rounded-md transition duration-200 disabled:opacity-50"
-      >
-        {loading ? "Creating Account..." : "Register"}
-      </button>
-
-      <div className="text-center">
-        <button type="button" onClick={onSwitchToLogin} className="text-purple-500 hover:text-purple-600 text-sm">
-          Already have an account? Login here
-        </button>
-      </div>
-    </form>
-  )
-}
-
-export default Register
+export default Register;
