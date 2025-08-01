@@ -1,13 +1,12 @@
 import { useState ,useEffect} from 'react'
-import Login from './components/login/Login'
-import Dashboard from './components/dashboard/Dashboard'
-import Register from './components/register/Register'
-// import MoodboardList from './components/MoodboardList'
+
+
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import './App.css'
 import { Outlet } from 'react-router-dom'
+import ThemToggle from './components/theme/ThemToggle';
 
 function App() {
   const [user, setUser] = useState(null)
@@ -83,7 +82,7 @@ function App() {
         )}
       </div> */}
       {/* <Login/> */}
-     
+     <ThemToggle/>
       <Outlet  context={{ moodboards, addMoodboard }}/>
      
     </div>

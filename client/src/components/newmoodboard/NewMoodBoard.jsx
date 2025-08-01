@@ -6,7 +6,7 @@ import { useNavigate, useOutletContext } from "react-router-dom";
 
 export default function NewMoodboard() {
   const navigate = useNavigate();
-  const { addMoodboard } = useOutletContext(); // get addMoodboard from App
+  const { addMoodboard } = useOutletContext(); 
 
   const [formData, setFormData] = useState({
     emojis: [],
